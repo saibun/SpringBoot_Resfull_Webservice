@@ -24,7 +24,7 @@ public class UserDAO {
 		public Users findOne( int id){
 			//Learn functional programming to understand below codes
 			Predicate<? super Users> predicate = user -> user.getId().equals(id);
-			return customer.stream().filter(predicate).findFirst().get();
+			return customer.stream().filter(predicate).findFirst().orElse(null);
 			
 		}
 		

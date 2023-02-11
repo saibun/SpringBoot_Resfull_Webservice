@@ -1,13 +1,16 @@
 package com.saikat.springboot.RestApi.users;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 public class UserResource {
@@ -22,14 +25,21 @@ public class UserResource {
 		return dao.findAll();
 	}
 	
-	@GetMapping("/singleUser/{id}")
+	@GetMapping("/User/{id}")
 	public Users singleResourse(@PathVariable int id){
-		return dao.findOne(id); 
+		Users result= dao.findOne(id);
+		if(result == null) {
+			throw new UserNotFoundException("id:"+id);
+		}else {
+			return result;
+		}
 	}
 	
-	@PostMapping("/addUser")
-	public Users addUser(@RequestBody Users user) {
-		return dao.add(user);
+	@PostMapping("/User")
+	public ResponseEntity<Users > addUser(@RequestBody Users user) {
+		Users savedata=dao.add(user);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedata.getId()).toUri();
+		return ResponseEntity.created(location).build();
 	}
 
 }
