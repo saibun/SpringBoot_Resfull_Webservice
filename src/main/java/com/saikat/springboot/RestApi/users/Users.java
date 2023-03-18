@@ -2,9 +2,16 @@ package com.saikat.springboot.RestApi.users;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+
 public class Users {
+	
+	
 	private Integer id;
+	@Size(min=2,message="Name will be at least 2 char")
 	private String name;
+	@Past(message="past date only")
 	private LocalDate birth;
 	public Users(Integer id, String name, LocalDate birth) {
 		super();

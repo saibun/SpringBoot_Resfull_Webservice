@@ -1,18 +1,18 @@
 package com.saikat.springboot.RestApi.controller;
 
 public class HelloWorldBean {
-	private String name;
+	private String name1;
 
-	public HelloWorldBean(String name) {
-		this.name=name;
+	public HelloWorldBean(String name2) {
+		this.name1=name2;
 	}
 
 	public String getName() {
-		return name;
+		return name1;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name1 = name;
 	}
 
 //	@Override
